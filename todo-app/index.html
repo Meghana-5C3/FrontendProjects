@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        TaskFlow Pro
+    </title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+        href="style.css">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- CHART JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- SORTABLE JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div>
+
+            <h1 class="logo">
+
+                <i class="fa-solid fa-list-check"></i>
+
+                TaskFlow
+
+            </h1>
+
+            <ul class="nav-links">
+
+                <li>
+
+                    <a href="#dashboard">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#tasks">
+
+                        <i class="fa-solid fa-list"></i>
+
+                        Tasks
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#analytics">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                        Analytics
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#focus">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        Focus
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!-- THEME -->
+
+        <button id="themeToggle">
+
+            <i class="fa-solid fa-moon"></i>
+
+            Toggle Theme
+
+        </button>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <!-- HERO -->
+
+        <section class="hero-section"
+            id="dashboard">
+
+            <div class="hero-content">
+
+                <h2>
+
+                    Welcome Back 👋
+
+                </h2>
+
+                <p>
+
+                    Plan smarter,
+                    track productivity,
+                    and manage tasks efficiently.
+
+                </p>
+
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+                alt="Productivity">
+
+        </section>
+
+        <!-- STATS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-list"></i>
+
+                <h3 id="totalTasks">
+
+                    0
+
+                </h3>
+
+                <p>
+
+                    Total Tasks
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h3 id="completedTasks">
+
+                    0
+
+                </h3>
+
+                <p>
+
+                    Completed
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-clock"></i>
+
+                <h3 id="pendingTasks">
+
+                    0
+
+                </h3>
+
+                <p>
+
+                    Pending
+
+                </p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fa-solid fa-fire"></i>
+
+                <h3 id="highPriorityTasks">
+
+                    0
+
+                </h3>
+
+                <p>
+
+                    High Priority
+
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- TASK SECTION -->
+
+        <section class="section-card"
+            id="tasks">
+
+            <h2>
+
+                Task Manager
+
+            </h2>
+
+            <!-- INPUTS -->
+
+            <div class="task-inputs">
+
+                <input type="text"
+                    id="taskInput"
+                    placeholder="Enter task...">
+
+                <input type="date"
+                    id="taskDate">
+
+                <input type="time"
+                    id="taskTime">
+
+                <select id="taskPriority">
+
+                    <option value="Low">
+
+                        Low
+
+                    </option>
+
+                    <option value="Medium">
+
+                        Medium
+
+                    </option>
+
+                    <option value="High">
+
+                        High
+
+                    </option>
+
+                </select>
+
+                <button id="addBtn">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Task
+
+                </button>
+
+            </div>
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+
+                <input type="text"
+                    id="searchInput"
+                    placeholder="Search tasks...">
+
+            </div>
+
+            <!-- FILTERS -->
+
+            <div class="filters">
+
+                <button class="filter-btn active"
+                    data-filter="all">
+
+                    All
+
+                </button>
+
+                <button class="filter-btn"
+                    data-filter="completed">
+
+                    Completed
+
+                </button>
+
+                <button class="filter-btn"
+                    data-filter="pending">
+
+                    Pending
+
+                </button>
+
+            </div>
+
+            <!-- TASKS -->
+
+            <ul id="taskList"></ul>
+
+        </section>
+
+        <!-- ANALYTICS -->
+
+        <section class="section-card"
+            id="analytics">
+
+            <h2>
+
+                Productivity Analytics
+
+            </h2>
+
+            <div class="analytics-grid">
+
+                <div class="chart-card">
+
+                    <canvas id="taskChart"></canvas>
+
+                </div>
+
+                <div class="progress-card">
+
+                    <h3>
+
+                        Productivity Progress
+
+                    </h3>
+
+                    <div class="progress-circle">
+
+                        <span id="progressPercent">
+
+                            0%
+
+                        </span>
+
+                    </div>
+
+                    <p>
+
+                        Complete more tasks to increase productivity.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- FOCUS -->
+
+        <section class="section-card"
+            id="focus">
+
+            <h2>
+
+                Focus Timer
+
+            </h2>
+
+            <div class="focus-card">
+
+                <h1 id="timer">
+
+                    25:00
+
+                </h1>
+
+                <p>
+
+                    Pomodoro Productivity Timer
+
+                </p>
+
+                <div class="timer-buttons">
+
+                    <button id="startTimer">
+
+                        Start
+
+                    </button>
+
+                    <button id="pauseTimer">
+
+                        Pause
+
+                    </button>
+
+                    <button id="resetTimer">
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- JS -->
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
